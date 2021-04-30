@@ -1,0 +1,46 @@
+*{
+    padding: 0;
+    margin:0;
+}
+header
+{
+    background-color: rgb(139, 240, 253);
+    display:block;
+    color:#FFFFFF;
+	text-align:center;
+}
+
+nav
+{
+    background-color: rgb(182, 250, 241); height: 50px;
+    display:block;
+    color:#FFFFFF;
+	text-align:left;
+}
+
+img
+{
+    width: 30px;
+    height: 30px;
+}
+
+button
+{
+    text-align:left;
+}
+
+section
+{
+    width: 80%;
+    border: 1px solid rgb(35, 74, 250);
+    padding: 5%;
+    margin: 5%;
+    font-size: 800%;
+    text-align:center;
+}
+
+main-section button
+{
+    size: 20%;
+}
+

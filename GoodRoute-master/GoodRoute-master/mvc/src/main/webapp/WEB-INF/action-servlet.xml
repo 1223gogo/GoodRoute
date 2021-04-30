@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+<mvc:resources location="/static/" mapping="/**"></mvc:resources>
+<!-- 어노테이션 기반 설정 선언 -->
+<mvc:annotation-driven />
+<!-- 스프링 컨테이너가 빈을 찾을 위치 설정 -->
+<context:component-scan base-package="lab.spring.mvc.controller"/>
+<context:component-scan base-package="lab.spring.mvc.model"/>
+<context:component-scan base-package="lab.spring.mvc.service"/>
+
+<!-- <bean id="/qr.do" class="lab.spring.mvc.controller.QrController"></bean> -->
+
+<!-- dataSource 설정, spring-jdbc 모듈 사용, spring 에서 jdbc 를 통해 oracle 에 접속할 수 있게 함 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"/>
+        <property name="username" value="scott"/>
+        <property name="password" value="oracle"/>
+    </bean>
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  <property name="dataSource" ref="dataSource" />
+  <property name="mapperLocations" value="classpath*:lab/spring/mvc/*Mapper.xml" />
+</bean>
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+  <constructor-arg index="0" ref="sqlSessionFactory" />
+</bean>
+<!-- Jsp를 View로 사용할 경우 설정하는 ViewResolver 빈 설정 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+</beans>

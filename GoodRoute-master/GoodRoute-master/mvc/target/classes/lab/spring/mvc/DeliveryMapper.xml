@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lab.mybatis.user.DeliveryMapper">
+	<insert id="addQr" parameterType="lab.spring.mvc.model.DeliveryVO">
+	    insert into delivery ( invoice_num, rec_name, addr, lat, lng) 
+	    values ( #{invoice_num}, #{rec_name}, #{addr}, #{lat}, #{lng})
+	 </insert>
+	 <update id="addStartEndPoint" parameterType="lab.spring.mvc.model.DeliveryVO">
+	    update delivery 
+	    set addr = #{addr}, lng = #{lng}, lat = #{lat} 
+	    where invoice_num = #{invoice_num} or rec_name = #{rec_name}
+	 </update>
+	
+	<select id="allLocation" resultType="lab.spring.mvc.model.DeliveryVO">
+	  	select invoice_num, lng, lat
+	  	from delivery
+  	</select>
+  	
+  
+  
+  <update id="updateLocation" parameterType="lab.spring.mvc.model.DeliveryVO">
+		update delivery 
+		set lng = #{lng}, lat = #{lat}
+		where invoice_num = #{invoice_num}
+	</update>
+  <!-- <insert id="addUser" parameterType="lab.spring.mvc.model.UserVO">
+    insert into userinfo ( userid, userpwd, username, email, phone, address) 
+    values ( #{userid}, #{userpwd}, #{username}, #{email}, #{phone}, #{address})
+  </insert>
+  <select id="allUsers" resultType="lab.spring.mvc.model.UserVO">
+  	select userid, userpwd, username, email, phone, address
+  	from userinfo
+  </select>
+  <select id="login" resultType="lab.spring.mvc.model.UserVO" 
+  				     parameterType="hashmap">
+    select userid, userpwd, username, email, phone, address
+  	from userinfo
+  	where userid=#{uid} and userpwd=#{upwd}
+  </select> -->
+</mapper>
